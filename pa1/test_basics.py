@@ -153,45 +153,13 @@ class GradescopeTests(unittest.TestCase):
                 data["output_file"],
                 data.get("points", 1)
             )
+if __name__ == "__main__":
+    print("Starting test discovery in", os.getcwd())
 
-if __name__ == '__main__':
-    suite = unittest.defaultTestLoader.loadTestsFromTestCase(GradescopeTests)
-    result = unittest.TextTestRunner(verbosity=2).run(suite)
+    suite = unittest.defaultTestLoader.discover('.', pattern='test*.py')
 
-    # Count points from passed subtests
-    total_score = 0
-    max_score = 0
-    results = []
+    os.makedirs("/autograder/results", exist_ok=True)
+    with open("/autograder/results/results.json", 'w') as f:
+        JSONTestRunner(visibility='visible', stdout_visibility='visible', stream=f).run(suite)
 
-    for test_number, data in GradescopeTests.test_cases.items():
-        points = data.get("points", 1)
-        max_score += points
-        name = data.get("name", f"Test {test_number}")
-
-        # Look for the subTest key in result.successes (a bit hacky but works)
-        passed = any(f"{name}" in str(success[0]) for success in getattr(result, 'successes', []))
-
-        if passed:
-            total_score += points
-            results.append({
-                "score": points,
-                "max_score": points,
-                "name": name,
-                "output": f"Passed {name}"
-            })
-        else:
-            results.append({
-                "score": 0,
-                "max_score": points,
-                "name": name,
-                "output": f"Failed {name}"
-            })
-
-    # Write to results.json
-    with open("/autograder/results/results.json", "w") as f:
-        json.dump({
-            "score": total_score,
-            "visibility": "visible",
-            "stdout_visibility": "visible",
-            "tests": results
-        }, f)
+    print("Finished test run. Results written.")
