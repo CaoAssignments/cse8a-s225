@@ -1,0 +1,1 @@
+Area of ring shape = 0.0
