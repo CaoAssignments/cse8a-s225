@@ -10,6 +10,7 @@ class TestPA1(unittest.TestCase):
 
     def run_script(self, input_data):
         try:
+            input_lines = input_data.strip().split('\n')
             result = subprocess.run(
                 ["python3", self.SCRIPT_PATH],
                 input=input_data,
@@ -18,13 +19,23 @@ class TestPA1(unittest.TestCase):
                 check=True,
                 timeout=5
             )
-            return result.stdout.strip()  # Return full stdout
+            # Capture the printed prompts
+            prompts = result.stdout.split('Area of ring shape')[0].strip().split(':')
+            normalized_output = ""
+            for i in range(len(input_lines)):
+                prompt_text = prompts[i].strip() if i < len(prompts) else ""
+                normalized_output += f"{prompt_text}:{input_lines[i]}\n"
+            # Append the final result line (Area output)
+            final_result_line = "Area of ring shape" + result.stdout.split('Area of ring shape')[1]
+            normalized_output += final_result_line.strip()
+            return normalized_output.strip()
         except subprocess.CalledProcessError as e:
             return f"ERROR: Script crashed with exit code {e.returncode}. Stderr:\n{e.stderr}"
         except FileNotFoundError:
             return "ERROR: Python executable not found."
         except subprocess.TimeoutExpired:
             return "ERROR: Script timed out after 5 seconds."
+
 
     def run_case(self, input_file, output_file):
         input_path = os.path.join(self.TESTS_DIR, input_file)
