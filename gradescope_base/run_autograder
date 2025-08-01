@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
+echo "Starting run_autograder"
+
 # make_assignment.sh will replace the lines here, DO NOT REMOVE
 REPLACE_NAME
 REPLACE_SOLUTION
 REPLACE_REPO_NAME
 
 BASE_DIR=/autograder/$REPO_NAME
+
+echo "BASE_DIR = $BASE_DIR"
+echo "NAME = $NAME"
+echo "Entering $BASE_DIR/$NAME"
 
 # update git repo
 cd $BASE_DIR
@@ -22,4 +28,6 @@ rm -rf $SOLUTION
 # copy student submission to folder
 cp -r /autograder/submission/$SOLUTION ./
 
+echo "Running test runner"
 python3 $BASE_DIR/gradescope_base/run_tests.py
+echo "Done running test runner"
