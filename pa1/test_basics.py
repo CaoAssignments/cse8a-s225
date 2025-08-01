@@ -37,7 +37,7 @@ class TestPA1(unittest.TestCase):
             expected_output = f.read().strip()
 
         actual_output = self.run_script(input_data)
-        return input_data, expected_output, actual_output
+        return expected_output, actual_output
 
     def assert_equal_with_message(self, test_name, expected, actual):
 
