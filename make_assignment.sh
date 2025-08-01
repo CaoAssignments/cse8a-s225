@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # CHANGE THESE FOR YOUR REPO!
-GITHUB_REPO='git@github.com:mnoukhov/gradescope-autograder-template.git'
-REPO_NAME="gradescope-autograder-template"
+GITHUB_REPO='git@github.com:CaoAssignments/cse8a-s225-pa1.git'
+REPO_NAME="cse8a-s225-pa1"
 
 
 # input the assignment number and the file that students have to fill out
@@ -28,5 +28,3 @@ sed "s,REPLACE_GITHUB_REPO,GITHUB_REPO=$GITHUB_REPO," zip_$name/setup.sh > /tmp/
 # zip the assignement and delete folder
 zip -r -m -j $name.zip zip_$name/*
 rmdir zip_$name
-
-
