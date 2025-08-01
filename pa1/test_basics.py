@@ -57,20 +57,13 @@ class TestPA1(unittest.TestCase):
 
 
     def assert_equal_with_message(self, test_name, expected, actual):
-        def normalize_output(s):
-            return '\n'.join(s.replace('\r\n', '\n').splitlines()).strip()
-
-        norm_actual = normalize_output(actual)
-        norm_expected = normalize_output(expected)
-
-        self.assertEqual(
-            norm_actual, norm_expected,
-            msg=(
-                f"\n--- {test_name} ---\n"
-                f"Expected Output:\n{norm_expected}\n\n"
-                f"Actual Output:\n{norm_actual}\n"
-            )
-        )
+        try:
+            self.assertEqual(actual, expected)
+        except AssertionError:
+            print(f"--- Test Origin: {test_name} ---")
+            print(f"Expected Output:\n{expected}")
+            print(f"\nActual Output:\n{actual}")
+            raise  # Re-raise so unittest still fails the test
 
     @weight(10)
     @visibility('visible')
