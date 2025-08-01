@@ -111,7 +111,7 @@ class GradescopeTests(unittest.TestCase):
         """
         Runs and evaluates a single test case.
         """
-        script_path = "pa1_solution.py"
+        script_path = "pa1.py"
         if not os.path.exists(script_path):
             self.fail(f"Missing solution file: {script_path}")
 
