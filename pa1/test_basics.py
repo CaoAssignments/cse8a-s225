@@ -36,27 +36,13 @@ class TestPA1(unittest.TestCase):
         with open(output_path, 'r') as f:
             expected_output = f.read().strip()
 
-        # Define expected prompts
-        prompts = [
-            "Enter coordinate x_center:",
-            "Enter coordinate y_center:",
-            "Enter coordinate x_p1:",
-            "Enter coordinate y_p1:",
-            "Enter coordinate x_p2:",
-            "Enter coordinate y_p2:"
-        ]
-
-        # Simulate terminal-like echoed interaction
-        echoed_input_output = '\n'.join([f"{prompt}{value}" for prompt, value in zip(prompts, input_lines)])
-
-        # Run the script with just the inputs
         raw_input = '\n'.join(input_lines)
         actual_program_output = self.run_script(raw_input)
 
-        # Append the final output from the student's code
+        # Don't echo prompts, just return what the script actually printed
         final_output = actual_program_output.strip()
 
-        return expected_output, final_output.strip()
+        return expected_output, final_output
 
 
     def assert_equal_with_message(self, test_name, expected, actual):
