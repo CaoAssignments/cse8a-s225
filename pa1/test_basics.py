@@ -8,10 +8,13 @@ class GradescopeTests(unittest.TestCase):
     with support for per-test point values and visible test names.
     """
 
+    # Paths
     SUBMISSION_DIR = "/autograder/submission"
     SCRIPT_PATH = os.path.join(SUBMISSION_DIR, "pa1.py")
-    TESTS_DIR = os.path.join(SUBMISSION_DIR, "tests")
+    # ✅ Use test files bundled in the autograder source directory
+    TESTS_DIR = os.path.join(os.path.dirname(__file__), "tests")
 
+    # Define test cases
     test_cases = {
         1: {
             "name": "Test Origin: (0,0) (1,0) (2,0)",
@@ -83,7 +86,7 @@ class GradescopeTests(unittest.TestCase):
 
     def run_script_and_capture_output(self, input_data):
         """
-        Runs the student's script and captures output.
+        Runs the student's script and captures the output.
         """
         try:
             result = subprocess.run(
