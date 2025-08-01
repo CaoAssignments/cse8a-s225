@@ -40,10 +40,8 @@ class TestPA1(unittest.TestCase):
         return expected_output, actual_output
 
     def assert_equal_with_message(self, test_name, expected, actual):
-
         def normalize_output(s):
-            lines = s.replace('\r\n', '\n').splitlines()
-            return '\n'.join(lines)  # No trailing \n
+            return '\n'.join(s.replace('\r\n', '\n').splitlines()).strip()
 
         norm_actual = normalize_output(actual)
         norm_expected = normalize_output(expected)
@@ -52,7 +50,7 @@ class TestPA1(unittest.TestCase):
             norm_actual, norm_expected,
             msg=(
                 f"\n--- {test_name} ---\n"
-                f"Expected Output:\n{norm_expected}\n"
+                f"Expected Output:\n{norm_expected}\n\n"
                 f"Actual Output:\n{norm_actual}\n"
             )
         )
