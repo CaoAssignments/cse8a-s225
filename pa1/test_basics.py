@@ -54,7 +54,7 @@ class TestPA1(unittest.TestCase):
         actual_program_output = self.run_script(raw_input)
 
         # Append the final output from the student's code
-        final_output = f"{echoed_input_output}\n{actual_program_output.splitlines()[-1]}"
+        final_output = actual_program_output.strip()
 
         return expected_output, final_output.strip()
 
