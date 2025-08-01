@@ -18,19 +18,14 @@ class TestPA1(unittest.TestCase):
                 check=True,
                 timeout=5
             )
-            output = result.stdout.strip()
-            search_string = "Area of ring shape ="
-            if search_string in output:
-                start_index = output.rfind(search_string)
-                final_output = output[start_index:].strip()
-                return final_output.splitlines()[-1]
-            return output
+            return result.stdout.strip()  # Return full stdout
         except subprocess.CalledProcessError as e:
             return f"ERROR: Script crashed with exit code {e.returncode}. Stderr:\n{e.stderr}"
         except FileNotFoundError:
             return "ERROR: Python executable not found."
         except subprocess.TimeoutExpired:
             return "ERROR: Script timed out after 5 seconds."
+
 
     def run_case(self, input_file, output_file):
         input_path = os.path.join(self.TESTS_DIR, input_file)
@@ -42,14 +37,25 @@ class TestPA1(unittest.TestCase):
             expected_output = f.read().strip()
 
         actual_output = self.run_script(input_data)
-        return expected_output, actual_output
+        return input_data, expected_output, actual_output
 
     def assert_equal_with_message(self, test_name, expected, actual):
-        self.assertEqual(actual, expected, msg=(
-            f"\n--- {test_name} ---\n"
-            f"Expected Output:\n{expected}\n"
-            f"Actual Output:\n{actual}\n"
-        ))
+
+        def normalize_output(s):
+            lines = s.replace('\r\n', '\n').splitlines()
+            return '\n'.join(lines)  # No trailing \n
+
+        norm_actual = normalize_output(actual)
+        norm_expected = normalize_output(expected)
+
+        self.assertEqual(
+            norm_actual, norm_expected,
+            msg=(
+                f"\n--- {test_name} ---\n"
+                f"Expected Output:\n{norm_expected}\n"
+                f"Actual Output:\n{norm_actual}\n"
+            )
+        )
 
     @weight(10)
     @visibility('visible')

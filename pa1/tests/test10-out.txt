@@ -1,1 +1,7 @@
+Enter coordinate x_center:3
+Enter coordinate y_center:3
+Enter coordinate x_p1:3
+Enter coordinate y_p1:3
+Enter coordinate x_p2:4
+Enter coordinate y_p2:4
 Area of ring shape = 6.28
