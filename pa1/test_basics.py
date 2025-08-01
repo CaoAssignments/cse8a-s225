@@ -26,18 +26,38 @@ class TestPA1(unittest.TestCase):
         except subprocess.TimeoutExpired:
             return "ERROR: Script timed out after 5 seconds."
 
-
     def run_case(self, input_file, output_file):
         input_path = os.path.join(self.TESTS_DIR, input_file)
         output_path = os.path.join(self.TESTS_DIR, output_file)
 
         with open(input_path, 'r') as f:
-            input_data = f.read()
+            input_lines = f.read().splitlines()
+
         with open(output_path, 'r') as f:
             expected_output = f.read().strip()
 
-        actual_output = self.run_script(input_data)
-        return expected_output, actual_output
+        # Define expected prompts
+        prompts = [
+            "Enter coordinate x_center:",
+            "Enter coordinate y_center:",
+            "Enter coordinate x_p1:",
+            "Enter coordinate y_p1:",
+            "Enter coordinate x_p2:",
+            "Enter coordinate y_p2:"
+        ]
+
+        # Simulate terminal-like echoed interaction
+        echoed_input_output = '\n'.join([f"{prompt}{value}" for prompt, value in zip(prompts, input_lines)])
+
+        # Run the script with just the inputs
+        raw_input = '\n'.join(input_lines)
+        actual_program_output = self.run_script(raw_input)
+
+        # Append the final output from the student's code
+        final_output = f"{echoed_input_output}\n{actual_program_output.splitlines()[-1]}"
+
+        return expected_output, final_output.strip()
+
 
     def assert_equal_with_message(self, test_name, expected, actual):
         def normalize_output(s):
