@@ -47,7 +47,6 @@ class TestPA1(unittest.TestCase):
     def assert_equal_with_message(self, test_name, input_data, expected, actual):
         self.assertEqual(actual, expected, msg=(
             f"\n--- {test_name} ---\n"
-            f"Input:\n{input_data}\n"
             f"Expected Output:\n{expected}\n"
             f"Actual Output:\n{actual}\n"
         ))
