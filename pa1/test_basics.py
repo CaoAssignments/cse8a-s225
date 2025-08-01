@@ -1,8 +1,7 @@
 import unittest
 import subprocess
 import os
-
-from gradescope_utils.autograder_utils.decorators import weight, visibility
+from gradescope_utils.autograder_utils.decorators import weight, visibility, name
 
 class TestPA1(unittest.TestCase):
     """
@@ -51,69 +50,81 @@ class TestPA1(unittest.TestCase):
 
     @weight(10)
     @visibility('visible')
-    def test_1(self):
+    @name("Test Origin: (0,0) (1,0) (2,0)")
+    def test_01(self):
         input_data, expected, actual = self.run_case("test1.txt", "test1-out.txt")
-        self.assertEqual(actual, expected, f"\nInput:\n{input_data}\nExpected:\n{expected}\nGot:\n{actual}")
+        self.assertEqual(actual, expected)
 
     @weight(10)
     @visibility('visible')
-    def test_2(self):
+    @name("Test Non-Origin 1: (3,3) (2,2) (1,1)")
+    def test_02(self):
         input_data, expected, actual = self.run_case("test2.txt", "test2-out.txt")
         self.assertEqual(actual, expected)
 
     @weight(10)
     @visibility('visible')
-    def test_3(self):
+    @name("Test Non-Origin 2: (5,6) (4,8) (7,3)")
+    def test_03(self):
         input_data, expected, actual = self.run_case("test3.txt", "test3-out.txt")
         self.assertEqual(actual, expected)
 
     @weight(10)
     @visibility('visible')
-    def test_4(self):
+    @name("Test Float 1: (5.9,3) (6.7,3.2) (11.5,2)")
+    def test_04(self):
         input_data, expected, actual = self.run_case("test4.txt", "test4-out.txt")
         self.assertEqual(actual, expected)
 
     @weight(10)
     @visibility('visible')
-    def test_5(self):
+    @name("Test Float 2: (2.2,6.9) (4.2,6.7) (5.2,6.3)")
+    def test_05(self):
         input_data, expected, actual = self.run_case("test5.txt", "test5-out.txt")
         self.assertEqual(actual, expected)
 
     @weight(10)
     @visibility('visible')
-    def test_6(self):
+    @name("Test Negative 1: (-10,-3) (-8,-1) (-13,-6)")
+    def test_06(self):
         input_data, expected, actual = self.run_case("test6.txt", "test6-out.txt")
         self.assertEqual(actual, expected)
 
     @weight(10)
     @visibility('visible')
-    def test_7(self):
+    @name("Test Negative 2: (-10,5) (4,3) (5,-10)")
+    def test_07(self):
         input_data, expected, actual = self.run_case("test7.txt", "test7-out.txt")
         self.assertEqual(actual, expected)
 
     @weight(10)
     @visibility('visible')
-    def test_8(self):
+    @name("Test P2 at Inner 1: (2,2) (6,6) (4,4)")
+    def test_08(self):
         input_data, expected, actual = self.run_case("test8.txt", "test8-out.txt")
         self.assertEqual(actual, expected)
 
     @weight(10)
     @visibility('visible')
-    def test_9(self):
+    @name("Test P2 at Inner 2: (4.4,4.5) (7.2,-1) (6.3,0)")
+    def test_09(self):
         input_data, expected, actual = self.run_case("test9.txt", "test9-out.txt")
         self.assertEqual(actual, expected)
 
     @weight(5)
     @visibility('visible')
+    @name("Test Overlap 1: (3,3) (3,3) (4,4)")
     def test_10(self):
         input_data, expected, actual = self.run_case("test10.txt", "test10-out.txt")
         self.assertEqual(actual, expected)
 
     @weight(5)
     @visibility('visible')
+    @name("Test Overlap 2: (1,1) (4,4) (4,4)")
     def test_11(self):
         input_data, expected, actual = self.run_case("test11.txt", "test11-out.txt")
         self.assertEqual(actual, expected)
+
 
 if __name__ == "__main__":
     unittest.main()
