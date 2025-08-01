@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # CHANGE THESE FOR YOUR REPO!
-GITHUB_REPO='git@github.com:CaoAssignments/cse8a-s225-pa1.git'
-REPO_NAME="cse8a-s225-pa1"
+GITHUB_REPO='git@github.com:CaoAssignments/cse8a-s225.git'
+REPO_NAME="cse8a-s225"
 
 
 # input the assignment number and the file that students have to fill out
