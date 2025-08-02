@@ -60,7 +60,7 @@ class TestPA1(unittest.TestCase):
         try:
             self.assertEqual(actual, expected)
         except AssertionError:
-            print(f"--- Test Origin: {test_name} ---")
+            print(f"--- Failed {test_name} ---")
             print(f"Expected Output:\n{expected}")
             print(f"\nActual Output:\n{actual}")
             raise  # Re-raise so unittest still fails the test
